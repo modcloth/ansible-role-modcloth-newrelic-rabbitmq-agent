@@ -1,0 +1,8 @@
+---
+- hosts: all
+  roles:
+  - role: modcloth.newrelic_rabbitmq_agent
+    new_relic_license_key: "ABCD"
+    newrelic_rabbitmq_agent_agents:
+    - name: 'Foo'
+      uri: 'http://guest:guest@rabbitmq.prod:15672'
