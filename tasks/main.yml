@@ -2,7 +2,7 @@
 - name: 'install newrelic_rabbitmq_agent gem'
   gem: name={{item}} user_install=no repository={{newrelic_rabbitmq_agent_repository}}
   with_items:
-  - newrelic_rabbitmq_agent
+  - newrelic_rabbitmq_plugin
 
 - name: 'make /etc/newrelic directory'
   file: path=/etc/newrelic state=directory
