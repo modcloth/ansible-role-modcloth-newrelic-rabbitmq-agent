@@ -1,0 +1,29 @@
+---
+- name: 'install newrelic_rabbitmq_agent gem'
+  gem: name={{item}} user_install=no repository={{newrelic_rabbitmq_agent_repository}}
+  with_items:
+  - newrelic_rabbitmq_plugin
+
+- name: 'make /etc/newrelic directory'
+  file: path=/etc/newrelic state=directory
+
+- name: 'write newrelic_rabbitmq_agent config'
+  template:
+    src={{newrelic_rabbitmq_agent_config_template}}
+    dest=/etc/newrelic/newrelic_rabbitmq_agent.yml
+  when: newrelic_rabbitmq_agent_config_template != ""
+  register: newrelic_rabbitmq_agent_conf
+
+- name: 'write upstart config'
+  template:
+    src=newrelic_rabbitmq_agent.conf.j2
+    dest=/etc/init/newrelic_rabbitmq_agent.conf
+  register: newrelic_rabbitmq_agent_upstart
+
+- name: 'restart service'
+  service: name=newrelic_rabbitmq_agent state=restarted
+  when: newrelic_rabbitmq_agent_conf.changed or
+        newrelic_rabbitmq_agent_upstart.changed
+
+- name: 'start service'
+  service: name=newrelic_rabbitmq_agent state=started

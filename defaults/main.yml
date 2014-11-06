@@ -1,0 +1,6 @@
+---
+newrelic_rabbitmq_agent_verbose: 0
+newrelic_rabbitmq_agent_config_template: 'newrelic_rabbitmq_agent.yml.j2'
+newrelic_rabbitmq_agent_repository: https://rubygems.org
+newrelic_rabbitmq_agent_conf_path: /etc/newrelic/newrelic_rabbitmq_agent.yml
+newrelic_rabbitmq_agent_agents: []
